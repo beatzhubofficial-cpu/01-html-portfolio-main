@@ -4,9 +4,10 @@ const projects = [
   {
     title: "HTML/CSS Portfolio",
     summary: "A personal portfolio introducing my work and skills, built with semantic HTML and responsive CSS.",
-    stack: ["HTML", "CSS"],
+    stack: ["HTML", "CSS", "JavaScript"],
     category: "frontend",
-    repo: `https://github.com/${githubUsername}/html-css-portfolio`
+    repo: "https://github.com/beatzhubofficial-cpu/01-html-portfolio-main",
+    caseStudy: "https://github.com/beatzhubofficial-cpu/01-html-portfolio-main#case-study"
   },
   {
     title: "JavaScript Landing Page",
@@ -172,6 +173,15 @@ function createProjectCard(project) {
     liveLink.rel = "noopener noreferrer";
     liveLink.textContent = "Live site";
     links.append(liveLink);
+  }
+
+  if (project.caseStudy) {
+    const caseStudyLink = document.createElement("a");
+    caseStudyLink.href = project.caseStudy;
+    caseStudyLink.target = "_blank";
+    caseStudyLink.rel = "noopener noreferrer";
+    caseStudyLink.textContent = "Case study";
+    links.append(caseStudyLink);
   }
 
   article.append(links);
