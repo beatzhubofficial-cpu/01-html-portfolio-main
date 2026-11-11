@@ -1,0 +1,571 @@
+/* Define the portfolio palette, spacing scale, and shared layout dimensions. */
+:root {
+  color-scheme: light;
+  --color-bg: #f3f5fa;
+  --color-surface: #ffffff;
+  --color-text: #192238;
+  --color-muted: #64708a;
+  --color-accent: #5558e8;
+  --color-accent-hover: #393bc0;
+  --color-border: #dfe3f2;
+  --color-control-border: #737d91;
+  --color-header: rgb(255 255 255 / 96%);
+  --color-image-bg: #e4e8f4;
+  --space-1: 0.375rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --radius: 1rem;
+  --max-width: 1100px;
+}
+
+/* Use predictable sizing and smooth, readable document defaults. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+}
+
+/* Establish the mobile-first typography and page colors. */
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Keep heading hierarchy clear and scale heading sizes with the viewport. */
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 750;
+}
+
+h2 {
+  margin-bottom: var(--space-4);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h3 {
+  margin-bottom: var(--space-2);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+}
+
+/* Keep images and other media within their mobile containers. */
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Let form controls and buttons inherit the site's typography. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make links and buttons easy to identify with pointer and keyboard input. */
+a {
+  color: var(--color-accent);
+  font-weight: 650;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+a:hover,
+button:hover {
+  color: var(--color-accent-hover);
+}
+
+a:focus-visible,
+button:focus-visible {
+  border-radius: 0.2rem;
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Reset button defaults while retaining visible interaction feedback. */
+button {
+  color: var(--color-text);
+  cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+/* Reveal a keyboard-only shortcut to the main content when it receives focus. */
+.skip-link {
+  position: fixed;
+  z-index: 20;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  transform: translateY(calc(-100% - var(--space-3)));
+  border-radius: 0.4rem;
+  background: var(--color-surface);
+  box-shadow: 0 0.5rem 1.5rem rgb(25 34 56 / 18%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Keep the compact mobile header sticky and reserve room for its menu button. */
+header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-header);
+  box-shadow: 0 0.5rem 1.5rem rgb(25 34 56 / 4%);
+  backdrop-filter: blur(14px);
+}
+
+header h1 {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Hide the menu button unless JavaScript enables the collapsible navigation. */
+.menu-toggle {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-control-border);
+  border-radius: 0.6rem;
+  background: var(--color-surface);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.js-enabled .menu-toggle {
+  display: inline-flex;
+}
+
+/* Draw a compact three-line hamburger icon without an image asset. */
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after {
+  width: 1.1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.menu-icon {
+  position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  position: absolute;
+  left: 0;
+  content: "";
+}
+
+.menu-icon::before {
+  top: -0.35rem;
+}
+
+.menu-icon::after {
+  top: 0.35rem;
+}
+
+/* Keep navigation visible without JavaScript and collapse it on small screens when enabled. */
+nav {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 0.75rem 1.5rem rgb(25 34 56 / 8%);
+}
+
+.js-enabled nav:not(.is-open) {
+  display: none;
+}
+
+/* Stack mobile navigation links with generous touch targets. */
+nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: var(--space-2);
+  border-radius: 0.5rem;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: var(--color-bg);
+  color: var(--color-accent);
+}
+
+/* Center the mobile content and prevent it from exceeding the design width. */
+main,
+footer {
+  width: min(100%, var(--max-width));
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+main {
+  padding-top: var(--space-3);
+}
+
+/* Space sections for readability and keep anchored headings below the sticky bar. */
+section {
+  scroll-margin-top: 6rem;
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+section:first-child {
+  padding-top: var(--space-3);
+}
+
+section p {
+  max-width: 68ch;
+  color: var(--color-muted);
+}
+
+/* Constrain the portrait while preserving responsive image sizing. */
+#about img {
+  width: min(100%, 12rem);
+  height: auto;
+  aspect-ratio: 1;
+  margin-top: var(--space-4);
+  border: 0.35rem solid var(--color-surface);
+  border-radius: 50%;
+  background: var(--color-image-bg);
+  box-shadow: 0 0.75rem 2rem rgb(25 34 56 / 12%);
+  object-fit: cover;
+}
+
+/* Let skill badges wrap naturally within the available mobile width. */
+#skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#skills li {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+/* Keep the showcase sections aligned with the rest of the page. */
+#projects {
+  display: block;
+}
+
+#projects h2 {
+  margin-bottom: var(--space-3);
+}
+
+.projects-intro {
+  margin-bottom: var(--space-4);
+}
+
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.project-filters button {
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-control-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.project-filters button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.project-filters button[aria-pressed="true"]:hover {
+  background: var(--color-accent-hover);
+  color: #fff;
+}
+
+.project-result-count {
+  margin-bottom: var(--space-4);
+  font-size: 0.9rem;
+}
+
+.project-group + .project-group {
+  margin-top: var(--space-5);
+}
+
+.project-group > h3 {
+  margin-bottom: var(--space-3);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: var(--space-3);
+}
+
+#projects article {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: 0 0.5rem 1.5rem rgb(25 34 56 / 5%);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+#projects article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 2rem rgb(25 34 56 / 12%);
+}
+
+#projects article h3 {
+  margin-bottom: 0;
+}
+
+#projects article p {
+  flex: 1;
+}
+
+.project-category {
+  color: var(--color-accent);
+  font-size: 0.82rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-tags li {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.featured-project-grid article {
+  min-height: 17rem;
+  padding: var(--space-5);
+  border-color: color-mix(in srgb, var(--color-accent) 32%, var(--color-border));
+}
+
+.featured-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent) 12%, var(--color-surface));
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+/* Separate contact links and use muted text for the footer. */
+#contact > p {
+  margin-bottom: var(--space-3);
+}
+
+#contact ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer {
+  padding-block: var(--space-4);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* Expand navigation and use wider spacing on tablet screens. */
+@media (min-width: 768px) {
+  header {
+    padding-inline: max(var(--space-4), calc((100% - var(--max-width)) / 2));
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .js-enabled .menu-toggle {
+    display: none;
+  }
+
+  nav,
+  .js-enabled nav:not(.is-open) {
+    position: static;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  nav ul {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  nav a {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  main,
+  footer {
+    padding-inline: var(--space-4);
+  }
+
+  main {
+    padding-top: var(--space-4);
+  }
+
+  section {
+    scroll-margin-top: 6rem;
+    padding-block: var(--space-6);
+  }
+
+  section:first-child {
+    padding-top: var(--space-4);
+  }
+
+  .project-grid {
+    gap: var(--space-4);
+  }
+}
+
+/* Add desktop breathing room and slightly larger grid gutters. */
+@media (min-width: 1024px) {
+  header {
+    padding-block: var(--space-4);
+  }
+
+  main,
+  footer {
+    padding-inline: var(--space-5);
+  }
+
+  .project-grid {
+    gap: var(--space-5);
+  }
+}
+
+/* Use dark-mode color tokens while preserving readable text and focus contrast. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-bg: #111827;
+    --color-surface: #1f2937;
+    --color-text: #f3f4f6;
+    --color-muted: #b3bfd1;
+    --color-accent: #a5b4fc;
+    --color-accent-hover: #c7d2fe;
+    --color-border: #3b4658;
+    --color-control-border: #8592aa;
+    --color-header: rgb(17 24 39 / 96%);
+    --color-image-bg: #374151;
+  }
+}
+
+/* Honor reduced-motion preferences by removing transitions and smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
